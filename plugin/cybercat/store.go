@@ -62,16 +62,6 @@ func init() {
 			return
 		}
 		/*******************************************************/
-		if typeOfcat == "猫" {
-			userInfo.LastTime = time.Now().Unix()
-		} else {
-			userInfo.Work++
-		}
-		if err = catdata.insert(gidStr, &userInfo); err != nil {
-			ctx.SendChain(message.Text("[ERROR]:", err))
-			return
-		}
-		/*******************************************************/
 		if wallet.GetWalletOf(ctx.Event.UserID) < 100 {
 			ctx.SendChain(message.Reply(id), message.Text("一只喵喵官方售价100哦;\n你身上没有足够的钱,快去赚钱吧~"))
 			return
@@ -183,12 +173,16 @@ func init() {
 			}
 			messageText = append(messageText, message.Text("这只喵喵好像很喜欢这个名字,\n"))
 		}
+		// 更新购买次数
+		if typeOfcat == "猫" {
+			userInfo.LastTime = time.Now().Unix()
+		} else {
+			userInfo.Work++
+		}
 		userInfo.Type = typeOfcat
 		userInfo.Satiety = satiety
 		userInfo.Mood = mood
 		userInfo.Weight = weight
-		userInfo.LastTime = 0
-		userInfo.Work = 0
 		userInfo.Picurl = picurl
 		if err = wallet.InsertWalletOf(ctx.Event.UserID, -money); err != nil {
 			ctx.SendChain(message.Text("[ERROR]:", err))
