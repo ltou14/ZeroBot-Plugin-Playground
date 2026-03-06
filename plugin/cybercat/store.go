@@ -23,7 +23,7 @@ func init() {
 		return false
 	}, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
@@ -209,7 +209,7 @@ func init() {
 		return false
 	}, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		/*******************************************************/
 		mun := 1.0
@@ -262,7 +262,7 @@ func init() {
 	})
 	engine.OnPrefixGroup([]string{"喵喵改名叫", "猫猫改名叫"}, zero.OnlyGroup, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
@@ -291,7 +291,7 @@ func init() {
 	})
 	engine.OnPrefix("上传猫猫照片", zero.OnlyGroup, getdb, func(ctx *zero.Ctx) bool {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
@@ -308,7 +308,7 @@ func init() {
 		}
 		return zero.MustProvidePicture(ctx)
 	}).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, _ := catdata.find(gidStr, uidStr)
 		userInfo.Picurl = ctx.State["image_url"].([]string)[0]

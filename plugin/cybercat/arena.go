@@ -20,7 +20,7 @@ import (
 func init() {
 	engine.OnRegex(`^(喵喵|猫猫)(PK|pk)\s*\[CQ:at,qq=(\d+).*`, zero.OnlyGroup, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		if ctx.State["regex_matched"].([]string)[3] == uidStr {
 			ctx.SendChain(message.Reply(id), message.Text("猫猫歪头看着你表示咄咄怪事哦~"))
@@ -167,7 +167,7 @@ func init() {
 		ctx.Send(messageText)
 	})
 	engine.OnFullMatchGroup([]string{"猫猫排行榜", "喵喵排行榜"}, zero.OnlyGroup, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		infoList, err := catdata.getGroupdata(gidStr)
 		if err != nil {
 			ctx.SendChain(message.Text("[ERROR]:", err))

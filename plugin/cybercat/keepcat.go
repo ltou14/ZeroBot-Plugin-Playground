@@ -17,7 +17,7 @@ import (
 func init() {
 	engine.OnRegex(`^喂猫((\d+(.\d+)?)斤猫粮)?|猫猫状态$`, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
@@ -176,7 +176,7 @@ func init() {
 	})
 	engine.OnRegex(`^猫猫打工(([1-9])小时)?$`, zero.OnlyGroup, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
@@ -235,7 +235,7 @@ func init() {
 	})
 	engine.OnFullMatchGroup([]string{"逗猫", "撸猫", "rua猫", "mua猫", "玩猫", "摸猫"}, zero.OnlyGroup, getdb).SetBlock(true).Limit(ctxext.LimitByUser).Handle(func(ctx *zero.Ctx) {
 		id := ctx.Event.MessageID
-		gidStr := "group" + strconv.FormatInt(ctx.Event.GroupID, 10)
+		gidStr := "catinfo"
 		uidStr := strconv.FormatInt(ctx.Event.UserID, 10)
 		userInfo, err := catdata.find(gidStr, uidStr)
 		if err != nil {
